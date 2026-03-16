@@ -3,133 +3,254 @@ package org.iftm.atividadea2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class CalculadoraTests {
-    @Test
-    @DisplayName("A memória deve ser inicializada corretamente sem passar valor")
-    void testeConstrutorSemArgumentos() {
-        // Arrange
-        Calculadora calculadora = new Calculadora();
-        int memoria = calculadora.getMemoria();
 
-        // Assert
-        assertEquals(0, memoria);
+    private Calculadora calculadora;
+
+    @Nested
+    @DisplayName("Inicialização")
+    class MemoriaTests {
+
+        @Test
+        @DisplayName("A memória deve ser inicializada corretamente sem passar valor")
+        void testeConstrutorSemArgumentos() {
+            // Arrange
+            int memoriaEsperada = 0;
+            calculadora = new Calculadora();
+
+            // Act
+            int memoria = calculadora.getMemoria();
+
+            // Assert
+            assertEquals(memoriaEsperada, memoria);
+        }
+
+        @Test
+        @DisplayName("A memória deve ser inicializada corretamente passando um valor positivo")
+        void testeConstrutorComArgumentoPositivo() {
+            // Arrange
+            int valorDaMemoria = 3;
+            calculadora = new Calculadora(valorDaMemoria);
+
+            // Act
+            int memoria = calculadora.getMemoria();
+
+            // Assert
+            assertEquals(valorDaMemoria, memoria);
+        }
+
+        @Test
+        @DisplayName("A memória deve ser inicializada corretamente passando um valor negativo")
+        void testeConstrutorComArgumentoNegativo() {
+            // Arrange
+            int valorDaMemoria = -3;
+            calculadora = new Calculadora(valorDaMemoria);
+
+            // Act
+            int memoria = calculadora.getMemoria();
+
+            // Assert
+            assertEquals(valorDaMemoria, memoria);
+        }
+
     }
 
-    @Test
-    @DisplayName("A memória deve ser inicializada corretamente passando um valor")
-    void testeConstrutorComArgumentos() {
-        // Arrange
-        int valorDaMemoria1 = 3;
-        int valorDaMemoria2 = -3;
+    @Nested
+    @DisplayName("Operações")
+    class OperacoesTests {
 
-        Calculadora calculadora1 = new Calculadora(valorDaMemoria1);
-        int memoria1 = calculadora1.getMemoria();
+        @BeforeEach
+        void setup() {
+            calculadora = new Calculadora(3);
+        }
 
-        Calculadora calculadora2 = new Calculadora(valorDaMemoria2);
-        int memoria2 = calculadora2.getMemoria();
+        @Test
+        @DisplayName("Deve somar corretamente um número positivo")
+        void testeSomarPositivo() {
+            // Arrange
+            int valorASomar = 4;
+            int resultadoEsperado = 7;
 
-        // Assert
-        assertEquals(valorDaMemoria1, memoria1);
-        assertEquals(valorDaMemoria2, memoria2);
-    }
+            // Act
+            calculadora.somar(valorASomar);
+            int resultadoObtido = calculadora.getMemoria();
 
-    @Test
-    @DisplayName("Deve somar corretamente um número positivo e outro negativo")
-    void testeSomar() {
-        // Arrange
-        int valorNegativo = -4;
-        Calculadora calculadora = new Calculadora(3);
-        int resultadoEsperado = -1;
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
 
-        // Act
-        calculadora.somar(valorNegativo);
-        int resultadoObtido = calculadora.getMemoria();
+        @Test
+        @DisplayName("Deve somar corretamente um número negativo")
+        void testeSomarNegativo() {
+            // Arrange
+            int valorASomar = -4;
+            int resultadoEsperado = -1;
 
-        // Assert
-        assertEquals(resultadoEsperado, resultadoObtido);
-    }
+            // Act
+            calculadora.somar(valorASomar);
+            int resultadoObtido = calculadora.getMemoria();
 
-    @Test
-    @DisplayName("Deve subtrair corretamente um número positivo por outro negativo")
-    void testeSubtrair() {
-        // Arrange
-        int valorNegativo = -4;
-        Calculadora calculadora = new Calculadora(3);
-        int resultadoEsperado = 7;
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
 
-        // Act
-        calculadora.subtrair(valorNegativo);
-        int resultadoObtido = calculadora.getMemoria();
+        @Test
+        @DisplayName("Deve subtrair corretamente um número positivo")
+        void testeSubtrairPositivo() {
+            // Arrange
+            int valorASubtrair = 4;
+            int resultadoEsperado = -1;
 
-        // Assert
-        assertEquals(resultadoEsperado, resultadoObtido);
-    }
+            // Act
+            calculadora.subtrair(valorASubtrair);
+            int resultadoObtido = calculadora.getMemoria();
 
-    @Test
-    @DisplayName("Deve multiplicar corretamente um número positivo por outro negativo")
-    void testeMultiplicar() {
-        // Arrange
-        int valorNegativo = -4;
-        Calculadora calculadora = new Calculadora(3);
-        int resultadoEsperado = -12;
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
 
-        // Act
-        calculadora.multiplicar(valorNegativo);
-        int resultadoObtido = calculadora.getMemoria();
+        @Test
+        @DisplayName("Deve subtrair corretamente um número negativo")
+        void testeSubtrairNegativo() {
+            // Arrange
+            int valorASubtrair = -4;
+            int resultadoEsperado = 7;
 
-        // Assert
-        assertEquals(resultadoEsperado, resultadoObtido);
-    }
+            // Act
+            calculadora.subtrair(valorASubtrair);
+            int resultadoObtido = calculadora.getMemoria();
 
-    @Test
-    @DisplayName("Deve dividir corretamente um número positivo por outro negativo. Além disso, deve apresentar Exception ao dividir por 0")
-    void testeDividir() throws Exception{
-        // Arrange
-        int valorNegativo = -4;
-        Calculadora calculadora = new Calculadora(3);
-        int resultadoEsperado = 0;
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
 
-        // Act
-        calculadora.dividir(valorNegativo);
-        int resultadoObtido = calculadora.getMemoria();
+        @Test
+        @DisplayName("Deve multiplicar corretamente um número positivo")
+        void testeMultiplicarPositivo() {
+            // Arrange
+            int valorAMultiplicar = 4;
+            int resultadoEsperado = 12;
 
-        // Assert
-        assertEquals(resultadoEsperado, resultadoObtido);
-        assertThrows(Exception.class, () -> calculadora.dividir(0));
-    }
+            // Act
+            calculadora.multiplicar(valorAMultiplicar);
+            int resultadoObtido = calculadora.getMemoria();
 
-    @Test
-    @DisplayName("Deve exponenciar corretamente e lançar Exception caso o exponente for maior que 20")
-    void testeExponenciar() throws Exception {
-        // Arrage
-        int exponente1 = 10;
-        int exponente2 = 20;
-        Calculadora calculadora = new Calculadora(1);
-        int resultadoEsperado = 1;
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
 
-        // Act
-        calculadora.exponenciar(exponente1);
-        int resultadoObtido = 1;
+        @Test
+        @DisplayName("Deve multiplicar corretamente um número negativo")
+        void testeMultiplicarNegativo() {
+            // Arrange
+            int valorAMultiplicar = -4;
+            int resultadoEsperado = -12;
 
-        // Assert
-        assertEquals(resultadoEsperado, resultadoObtido);
-        assertThrows(Exception.class, () -> calculadora.exponenciar(exponente2));
-    }
+            // Act
+            calculadora.multiplicar(valorAMultiplicar);
+            int resultadoObtido = calculadora.getMemoria();
 
-    @Test
-    @DisplayName("Deve zerar corretamente a memória")
-    void testeZerarMemoria() {
-        // Arrange
-        Calculadora calculadora = new Calculadora(3);
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
 
-        // Act
-        calculadora.zerarMemoria();
-        int memoria = calculadora.getMemoria();
+        @Test
+        @DisplayName("Deve dividir corretamente um número positivo")
+        void testeDividirPositivo() throws Exception {
+            // Arrange
+            int valorADividir = 4;
+            int resultadoEsperado = 0;
 
-        // Assert
-        assertEquals(0, memoria);
+            // Act
+            calculadora.dividir(valorADividir);
+            int resultadoObtido = calculadora.getMemoria();
+
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
+
+        @Test
+        @DisplayName("Deve dividir corretamente um número negativo")
+        void testeDividirNegativo() throws Exception {
+            // Arrange
+            int valorADividir = -4;
+            int resultadoEsperado = 0;
+
+            // Act
+            calculadora.dividir(valorADividir);
+            int resultadoObtido = calculadora.getMemoria();
+
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
+
+        @Test
+        @DisplayName("Deve lançar Exception ao dividir por zero")
+        void testeDividirPorZero() {
+            // Arrange
+            int divisor = 0;
+
+            // Assert
+            assertThrows(Exception.class, () -> calculadora.dividir(divisor));
+        }
+
+        @Test
+        @DisplayName("Deve exponenciar corretamente para expoente 1")
+        void testeExponenciarExpoente1() throws Exception {
+            // Arrange
+            int expoente = 1;
+            int resultadoEsperado = 3;
+
+            // Act
+            calculadora.exponenciar(expoente);
+            int resultadoObtido = calculadora.getMemoria();
+
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
+
+        @Test
+        @DisplayName("Deve exponenciar corretamente para expoente 10")
+        void testeExponenciarExpoente10() throws Exception {
+            // Arrange
+            int expoente = 10;
+            int resultadoEsperado = 59049;
+
+            // Act
+            calculadora.exponenciar(expoente);
+            int resultadoObtido = calculadora.getMemoria();
+
+            // Assert
+            assertEquals(resultadoEsperado, resultadoObtido);
+        }
+
+        @Test
+        @DisplayName("Deve lançar Exception para expoente 20")
+        void testeExponenciarExpoente20() {
+            // Arrange
+            int expoente = 20;
+
+            // Assert
+            assertThrows(Exception.class, () -> calculadora.exponenciar(expoente));
+        }
+
+        @Test
+        @DisplayName("Deve zerar corretamente a memória")
+        void testeZerarMemoria() {
+            // Arrange
+            int memoriaEsperada = 0;
+
+            // Act
+            calculadora.zerarMemoria();
+            int memoria = calculadora.getMemoria();
+
+            // Assert
+            assertEquals(memoriaEsperada, memoria);
+        }
     }
 }
