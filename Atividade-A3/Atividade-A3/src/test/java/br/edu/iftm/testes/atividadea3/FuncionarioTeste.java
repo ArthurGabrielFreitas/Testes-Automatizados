@@ -57,4 +57,25 @@ public class FuncionarioTeste {
 
         assertThrows(IllegalArgumentException.class, () -> funcionario.setValorHora(valorHora));
     }
+
+    void testarModificarValorPorHoraComValoresValidosGeraPagamentoAcimaDoLimiteEGeraErro(){
+        int horasTrabalhadas = 160;
+        Double valorHora = 100.0;
+
+        funcionario.setValorHora(valorHora);
+        funcionario.setHorasTrabalhadas(horasTrabalhadas);
+        assertThrows(IllegalArgumentException.class, () -> funcionario.calcularPagamento(horasTrabalhadas, valorHora));
+    }
+
+    void testarModificarValorPorHoraComValoresValidosProduzPagamentoEsperado(){
+        int horasTrabalhadas = 160;
+        Double valorHora = 50.0;
+        Double pagamentoEsperado = 8000.0;
+
+        funcionario.setValorHora(valorHora);
+        funcionario.setHorasTrabalhadas(horasTrabalhadas);
+        Double pagamentoObtido = funcionario.calcularPagamento(horasTrabalhadas, valorHora);
+
+        assertEquals(pagamentoEsperado, pagamentoObtido);
+    }
 }
