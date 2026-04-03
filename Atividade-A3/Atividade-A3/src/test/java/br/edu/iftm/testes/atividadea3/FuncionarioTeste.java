@@ -11,7 +11,7 @@ public class FuncionarioTeste {
     private Funcionario funcionario;
 
     @BeforeEach
-    void instanciarObjetoFuncionarioTercerizado(){
+    void instanciarObjetoFuncionarioTercerizado() {
         funcionario = new Funcionario();
     }
 
@@ -25,7 +25,7 @@ public class FuncionarioTeste {
 
     @Test
     @DisplayName("Deve lançar erro ao modificar horas acima do limite superior")
-    void testarModificarHorasAcimaDoLimiteSuperiorGeraErro(){
+    void testarModificarHorasAcimaDoLimiteSuperiorGeraErro() {
         int horasTrabalhadas = 200;
 
         assertThrows(IllegalArgumentException.class, () -> funcionario.setHorasTrabalhadas(horasTrabalhadas));
@@ -33,7 +33,7 @@ public class FuncionarioTeste {
 
     @Test
     @DisplayName("Deve lançar erro ao calcular pagamento acima do limite com horas válidas")
-    void testarModificarHorasComValoresValidosGeraPagamentoAcimaDoLimiteEGeraErro(){
+    void testarModificarHorasComValoresValidosGeraPagamentoAcimaDoLimiteEGeraErro() {
         int horasTrabalhadas = 160;
         double valorHora = 100.0;
 
@@ -58,7 +58,7 @@ public class FuncionarioTeste {
 
     @Test
     @DisplayName("Deve lançar erro ao modificar valor por hora abaixo do limite inferior")
-    void testarModificarValorPorHoraAbaixoDoLimiteInferiorGeraErro(){
+    void testarModificarValorPorHoraAbaixoDoLimiteInferiorGeraErro() {
         double valorHora = 10.0;
 
         assertThrows(IllegalArgumentException.class, () -> funcionario.setValorHora(valorHora));
@@ -66,7 +66,7 @@ public class FuncionarioTeste {
 
     @Test
     @DisplayName("Deve lançar erro ao modificar valor por hora acima do limite superior")
-    void testarModificarValorPorHoraAcimaDoLimiteSuperiorGeraErro(){
+    void testarModificarValorPorHoraAcimaDoLimiteSuperiorGeraErro() {
         double valorHora = 200.0;
 
         assertThrows(IllegalArgumentException.class, () -> funcionario.setValorHora(valorHora));
@@ -74,7 +74,7 @@ public class FuncionarioTeste {
 
     @Test
     @DisplayName("Deve lançar erro ao calcular pagamento acima do limite com valor por hora válido")
-    void testarModificarValorPorHoraComValoresValidosGeraPagamentoAcimaDoLimiteEGeraErro(){
+    void testarModificarValorPorHoraComValoresValidosGeraPagamentoAcimaDoLimiteEGeraErro() {
         int horasTrabalhadas = 160;
         double valorHora = 100.0;
 
@@ -85,7 +85,7 @@ public class FuncionarioTeste {
 
     @Test
     @DisplayName("Deve produzir pagamento esperado com valor por hora válido")
-    void testarModificarValorPorHoraComValoresValidosProduzPagamentoEsperado(){
+    void testarModificarValorPorHoraComValoresValidosProduzPagamentoEsperado() {
         int horasTrabalhadas = 160;
         double valorHora = 50.0;
         double pagamentoEsperado = 8000.0;

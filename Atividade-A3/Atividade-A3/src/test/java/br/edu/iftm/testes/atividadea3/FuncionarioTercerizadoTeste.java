@@ -13,7 +13,7 @@ public class FuncionarioTercerizadoTeste {
     private FuncionarioTercerizado funcionarioTercerizado;
 
     @BeforeEach
-    void instanciarObjetoFuncionarioTercerizado(){
+    void instanciarObjetoFuncionarioTercerizado() {
         funcionarioTercerizado = new FuncionarioTercerizado();
     }
 
@@ -22,7 +22,8 @@ public class FuncionarioTercerizadoTeste {
     void testeModificarDespesaAcimaDoLimiteGeraErro() {
         double valorDespesasAdicionais = 2000.0;
 
-        assertThrows(IllegalArgumentException.class, () -> funcionarioTercerizado.setDespesasAdicionais(valorDespesasAdicionais));
+        assertThrows(IllegalArgumentException.class,
+                () -> funcionarioTercerizado.setDespesasAdicionais(valorDespesasAdicionais));
     }
 
     @Test

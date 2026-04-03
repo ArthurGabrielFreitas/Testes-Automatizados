@@ -5,11 +5,11 @@ public class Funcionario {
     private int horasTrabalhadas;
     private double valorHora;
 
-    public void setNome(String nome){
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getNome(){
+    public String getNome() {
         return nome;
     }
 
@@ -18,11 +18,11 @@ public class Funcionario {
             throw new IllegalArgumentException("A quantidade de horas trabalhadas por mês deve ser menor que 160");
         } else if (horasTrabalhadas < 20) {
             throw new IllegalArgumentException("A quantidade de horas trabalhadas por mês deve ser maior que 20");
-        } 
+        }
         this.horasTrabalhadas = horasTrabalhadas;
     }
 
-    public int getHorasTrabalhadas(){
+    public int getHorasTrabalhadas() {
         return horasTrabalhadas;
     }
 
@@ -31,18 +31,20 @@ public class Funcionario {
             throw new IllegalArgumentException("O valor por hora deve ser menor que R$151,80");
         } else if (valorHora < 15.18) {
             throw new IllegalArgumentException("O valor por hora deve ser maior que R$15,18");
-        } 
+        }
         this.valorHora = valorHora;
     }
 
-    public double getValorHora(){
+    public double getValorHora() {
         return valorHora;
     }
 
     public double calcularPagamento() {
         double pagamento = horasTrabalhadas * valorHora;
-        if (pagamento > 10000.0) {   
-            throw new IllegalArgumentException("Os dados passados geram um pagamento de R$"+String.format("%.2f", pagamento).replace(".", ",")+"maior que o limite de R$10.000,00. Pagamento calculado: R$");
+        if (pagamento > 10000.0) {
+            throw new IllegalArgumentException(
+                    "Os dados passados geram um pagamento de R$" + String.format("%.2f", pagamento).replace(".", ",")
+                            + "maior que o limite de R$10.000,00. Pagamento calculado: R$");
         }
         return pagamento;
     }
