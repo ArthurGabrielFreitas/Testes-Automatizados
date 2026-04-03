@@ -51,4 +51,10 @@ public class FuncionarioTeste {
 
         assertThrows(IllegalArgumentException.class, () -> funcionario.setValorHora(valorHora));
     }
+
+    void testarModificarValorPorHoraAcimaDoLimiteSuperiorGeraErro(){
+        Double valorHora = 200.0;
+
+        assertThrows(IllegalArgumentException.class, () -> funcionario.setValorHora(valorHora));
+    }
 }
