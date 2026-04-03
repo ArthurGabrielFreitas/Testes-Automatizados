@@ -7,7 +7,7 @@ public class FuncionarioTercerizado {
         throw new UnsupportedOperationException("Unimplemented method 'setDespesasAdicionais'");
     }
 
-    public Object calcularPagamento() {
+    public Double calcularPagamento() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'calcularPagamento'");
     }

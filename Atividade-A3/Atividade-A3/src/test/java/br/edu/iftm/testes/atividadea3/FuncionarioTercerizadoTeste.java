@@ -1,5 +1,6 @@
 package br.edu.iftm.testes.atividadea3;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -32,5 +33,20 @@ public class FuncionarioTercerizadoTeste {
         funcionarioTercerizado.setValorHora(valorHora);
         funcionarioTercerizado.setHorasTrabalhadas(horasTrabalhadas);
         assertThrows(IllegalArgumentException.class, () -> funcionarioTercerizado.calcularPagamento());
+    }
+
+    @Test
+    void testeModificarDespesaGeraPagamentoValido() {
+        Double valorDespesasAdicionais = 200.0;
+        Double valorHora = 40.0;
+        int horasTrabalhadas = 160;
+        Double pagamentoEsperado = 6620.0;
+
+        funcionarioTercerizado.setDespesasAdicionais(valorDespesasAdicionais);
+        funcionarioTercerizado.setValorHora(valorHora);
+        funcionarioTercerizado.setHorasTrabalhadas(horasTrabalhadas);
+        Double pagamentoObtido = funcionarioTercerizado.calcularPagamento();
+
+        assertEquals(pagamentoObtido, pagamentoEsperado);
     }
 }
