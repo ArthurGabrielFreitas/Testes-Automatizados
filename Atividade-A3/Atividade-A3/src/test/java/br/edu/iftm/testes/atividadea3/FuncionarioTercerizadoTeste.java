@@ -18,15 +18,15 @@ public class FuncionarioTercerizadoTeste {
 
     @Test
     void testeModificarDespesaAcimaDoLimiteGeraErro() {
-        Double valorDespesasAdicionais = 2000.0;
+        double valorDespesasAdicionais = 2000.0;
 
         assertThrows(IllegalArgumentException.class, () -> funcionarioTercerizado.setDespesasAdicionais(valorDespesasAdicionais));
     }
 
     @Test
     void testeModificarDespesaGeraPagamentoAcimaDoLimiteDeSalarioGerandoErro() {
-        Double valorDespesasAdicionais = 1000.0;
-        Double valorHora = 60.0;
+        double valorDespesasAdicionais = 1000.0;
+        double valorHora = 60.0;
         int horasTrabalhadas = 160;
 
         funcionarioTercerizado.setDespesasAdicionais(valorDespesasAdicionais);
@@ -37,15 +37,15 @@ public class FuncionarioTercerizadoTeste {
 
     @Test
     void testeModificarDespesaGeraPagamentoValido() {
-        Double valorDespesasAdicionais = 200.0;
-        Double valorHora = 40.0;
+        double valorDespesasAdicionais = 200.0;
+        double valorHora = 40.0;
         int horasTrabalhadas = 160;
-        Double pagamentoEsperado = 6620.0;
+        double pagamentoEsperado = 6620.0;
 
         funcionarioTercerizado.setDespesasAdicionais(valorDespesasAdicionais);
         funcionarioTercerizado.setValorHora(valorHora);
         funcionarioTercerizado.setHorasTrabalhadas(horasTrabalhadas);
-        Double pagamentoObtido = funcionarioTercerizado.calcularPagamento();
+        double pagamentoObtido = funcionarioTercerizado.calcularPagamento();
 
         assertEquals(pagamentoObtido, pagamentoEsperado);
     }

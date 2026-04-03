@@ -27,7 +27,7 @@ public class FuncionarioTeste {
 
     void testarModificarHorasComValoresValidosGeraPagamentoAcimaDoLimiteEGeraErro(){
         int horasTrabalhadas = 160;
-        Double valorHora = 100.0;
+        double valorHora = 100.0;
 
         funcionario.setValorHora(valorHora);
         funcionario.setHorasTrabalhadas(horasTrabalhadas);
@@ -36,31 +36,31 @@ public class FuncionarioTeste {
 
         void testarModificarHorasComValoresValidosProduzPagamentoEsperado() {
         int horasTrabalhadas = 160;
-        Double valorHora = 50.0;
-        Double pagamentoEsperado = 8000.0;
+        double valorHora = 50.0;
+        double pagamentoEsperado = 8000.0;
 
         funcionario.setValorHora(valorHora);
         funcionario.setHorasTrabalhadas(horasTrabalhadas);
-        Double pagamentoObtido = funcionario.calcularPagamento();
+        double pagamentoObtido = funcionario.calcularPagamento();
 
         assertEquals(pagamentoEsperado, pagamentoObtido);
     }
 
     void testarModificarValorPorHoraAbaixoDoLimiteInferiorGeraErro(){
-        Double valorHora = 10.0;
+        double valorHora = 10.0;
 
         assertThrows(IllegalArgumentException.class, () -> funcionario.setValorHora(valorHora));
     }
 
     void testarModificarValorPorHoraAcimaDoLimiteSuperiorGeraErro(){
-        Double valorHora = 200.0;
+        double valorHora = 200.0;
 
         assertThrows(IllegalArgumentException.class, () -> funcionario.setValorHora(valorHora));
     }
 
     void testarModificarValorPorHoraComValoresValidosGeraPagamentoAcimaDoLimiteEGeraErro(){
         int horasTrabalhadas = 160;
-        Double valorHora = 100.0;
+        double valorHora = 100.0;
 
         funcionario.setValorHora(valorHora);
         funcionario.setHorasTrabalhadas(horasTrabalhadas);
@@ -69,12 +69,12 @@ public class FuncionarioTeste {
 
     void testarModificarValorPorHoraComValoresValidosProduzPagamentoEsperado(){
         int horasTrabalhadas = 160;
-        Double valorHora = 50.0;
-        Double pagamentoEsperado = 8000.0;
+        double valorHora = 50.0;
+        double pagamentoEsperado = 8000.0;
 
         funcionario.setValorHora(valorHora);
         funcionario.setHorasTrabalhadas(horasTrabalhadas);
-        Double pagamentoObtido = funcionario.calcularPagamento();
+        double pagamentoObtido = funcionario.calcularPagamento();
 
         assertEquals(pagamentoEsperado, pagamentoObtido);
     }

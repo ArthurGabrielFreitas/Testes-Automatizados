@@ -3,7 +3,7 @@ package br.edu.iftm.testes.atividadea3;
 public class Funcionario {
     private String nome;
     private int horasTrabalhadas;
-    private Double valorHora;
+    private double valorHora;
 
     public void setNome(String nome){
         this.nome = nome;
@@ -26,7 +26,7 @@ public class Funcionario {
         return horasTrabalhadas;
     }
 
-    public void setValorHora(Double valorHora) {
+    public void setValorHora(double valorHora) {
         if (valorHora > 151.8) {
             throw new IllegalArgumentException("O valor por hora deve ser menor que R$151,80");
         } else if (valorHora < 15.18) {

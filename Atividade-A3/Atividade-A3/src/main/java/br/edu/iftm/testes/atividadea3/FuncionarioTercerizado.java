@@ -3,7 +3,7 @@ package br.edu.iftm.testes.atividadea3;
 public class FuncionarioTercerizado extends Funcionario {
     private double valorDespesasAdicionais;
 
-    public void setDespesasAdicionais(Double valorDespesasAdicionais) {
+    public void setDespesasAdicionais(double valorDespesasAdicionais) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setDespesasAdicionais'");
     }
