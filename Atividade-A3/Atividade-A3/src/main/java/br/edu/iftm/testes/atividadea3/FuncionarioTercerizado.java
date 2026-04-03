@@ -4,8 +4,10 @@ public class FuncionarioTercerizado extends Funcionario {
     private double valorDespesasAdicionais;
 
     public void setDespesasAdicionais(double valorDespesasAdicionais) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDespesasAdicionais'");
+        if (valorDespesasAdicionais > 1000) {
+            throw new IllegalArgumentException("O valor das despesas adicionais não deve superar R$10000,00");
+        }
+        this.valorDespesasAdicionais = valorDespesasAdicionais;
     }
 
     @Override
