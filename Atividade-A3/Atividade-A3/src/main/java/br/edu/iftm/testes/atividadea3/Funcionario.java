@@ -12,7 +12,7 @@ public class Funcionario {
         throw new UnsupportedOperationException("Unimplemented method 'setValorHora'");
     }
 
-    public double calcularPagamento() {
+    public double calcularPagamento(int horasTrabalhadas, Double valorHora) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'calcularPagamento'");
     }
