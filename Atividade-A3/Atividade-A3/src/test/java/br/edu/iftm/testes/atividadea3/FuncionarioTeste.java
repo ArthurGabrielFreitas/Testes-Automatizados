@@ -46,5 +46,9 @@ public class FuncionarioTeste {
         assertEquals(pagamentoEsperado, pagamentoObtido);
     }
 
-    
+    void testarModificarValorPorHoraAbaixoDoLimiteInferiorGeraErro(){
+        Double valorHora = 10.0;
+
+        assertThrows(IllegalArgumentException.class, () -> funcionario.setValorHora(valorHora));
+    }
 }
