@@ -39,7 +39,7 @@ public class Funcionario {
         return valorHora;
     }
 
-    public double calcularPagamento(int horasTrabalhadas, Double valorHora) {
+    public double calcularPagamento() {
         double pagamento = horasTrabalhadas * valorHora;
         if (pagamento > 1000.0) {   
             throw new IllegalArgumentException("Os dados passados geram um pagamento maior que o limite de R$10000,00");
