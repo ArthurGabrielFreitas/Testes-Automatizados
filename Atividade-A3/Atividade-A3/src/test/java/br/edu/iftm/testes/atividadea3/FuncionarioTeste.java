@@ -17,4 +17,10 @@ public class FuncionarioTeste {
 
         assertThrows(IllegalArgumentException.class, () -> funcionario.setHorasTrabalhadas(horasTrabalhadas));
     }
+
+    void testarModificarHorasAcimaDoLimiteSuperiorGeraErro(){
+        int horasTrabalhadas = 200;
+
+        assertThrows(IllegalArgumentException.class, () -> funcionario.setHorasTrabalhadas(horasTrabalhadas));
+    }
 }
