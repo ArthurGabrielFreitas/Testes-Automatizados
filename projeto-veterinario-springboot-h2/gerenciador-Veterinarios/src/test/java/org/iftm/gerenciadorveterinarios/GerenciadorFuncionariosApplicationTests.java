@@ -1,10 +1,10 @@
-package com.cod3r.gerenciadorfuncionarios;
+package org.iftm.gerenciadorveterinarios;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GerenciadorFuncionariosApplicationTests {
+class GerenciadorVeterinariosApplicationTests {
 
 	@Test
 	void contextLoads() {
