@@ -2,6 +2,7 @@ package org.iftm.gerenciadorveterinarios.repositories;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ import org.iftm.gerenciadorveterinarios.entities.Veterinario;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Commit;
 
 @DataJpaTest
@@ -163,12 +165,35 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
-    void testeBuscarQuantosVeterinariosAcimaDoTetoSalarial(){
+    void testeBuscarQuantosVeterinariosAcimaDoTetoSalarial() {
         int quantidadeAcimaDoTeto = 8;
         BigDecimal tetoSalarial = BigDecimal.valueOf(5000);
 
         int resultado = repositorio.countBySalarioGreaterThan(tetoSalarial);
 
         assertEquals(quantidadeAcimaDoTeto, resultado);
+    }
+
+    @Test
+    void testeRecusarSalvarEmailDuplicado() {
+        String silabaBusca = "iza";
+        String nomeNovo = "Ana Beatriz Borges";
+        String especialidadeNova = "grandes";
+        BigDecimal salarioMinimo = BigDecimal.valueOf(3800.0);
+        Instant dataNova = Instant.parse("1995-03-15T00:00:00Z");
+        Veterinario vetNovo = new Veterinario();
+
+        Veterinario vetSalvo = repositorio.findByNomeContains(silabaBusca).get(0);
+        vetNovo.setNome(nomeNovo);
+        vetNovo.setEspecialidade(especialidadeNova);
+        vetNovo.setSalario(salarioMinimo);
+        vetNovo.setDataNascimento(dataNova);
+        vetNovo.setEmail(vetSalvo.getEmail());
+
+        assertThrows(DataIntegrityViolationException.class,
+                () -> {
+                    repositorio.save(vetNovo);
+                    repositorio.flush();
+                }, "Não deveria permitir o salvamento");
     }
 }
