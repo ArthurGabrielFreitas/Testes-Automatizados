@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +61,42 @@ public class VeterinarioRepositoryTest {
         List<Veterinario> resultado = repositorio.findByNomeContains(silabaBusca);
 
         assertEquals(totalEsperado, resultado.size(), "Deveria retornar todos os veterinários cadastrados");
+    }
+
+    @Test
+    void testeBuscarPorSalarioSuperior() {
+        BigDecimal salarioMinimo = BigDecimal.valueOf(4000.0);
+
+        List<Veterinario> resultado = repositorio.findBySalarioGreaterThan(salarioMinimo);
+
+        assertFalse(resultado.isEmpty(), "Deveria retornar mais de um veterinário");
+        assertTrue(resultado.stream().allMatch(v -> v.getSalario().compareTo(salarioMinimo) > 0),
+                "Todo veterinário retornado deve ter salário maior que " + salarioMinimo);
+    }
+
+    @Test
+    void testeBuscarPorSalarioInferior() {
+        BigDecimal salarioMaximo = BigDecimal.valueOf(5000.0);
+
+        List<Veterinario> resultado = repositorio.findBySalarioLessThan(salarioMaximo);
+
+        assertFalse(resultado.isEmpty(), "Deveria retornar mais de um veterinário");
+        assertTrue(resultado.stream().allMatch(v -> v.getSalario().compareTo(salarioMaximo) < 0),
+                "Todo veterinário retornado deve ter salário menor que " + salarioMaximo);
+    }
+
+    @Test
+    void testeBuscarPorSalarioEmFaixaDeValores() {
+        BigDecimal salarioMinimo = BigDecimal.valueOf(4000.0);
+        BigDecimal salarioMaximo = BigDecimal.valueOf(5000.0);
+
+        List<Veterinario> resultado = repositorio.findBySalarioBetween(salarioMinimo, salarioMaximo);
+
+        assertFalse(resultado.isEmpty(), "Deveria retornar mais de um veterinário");
+        assertTrue(
+                resultado.stream()
+                        .allMatch(v -> v.getSalario().compareTo(salarioMinimo) > 0
+                                && v.getSalario().compareTo(salarioMaximo) < 0),
+                "Todo veterinário retornado deve ter salário entre " + salarioMinimo + " e " + salarioMaximo);
     }
 }
