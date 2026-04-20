@@ -2,7 +2,6 @@ package org.iftm.gerenciadorveterinarios.entities;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
@@ -16,6 +15,7 @@ public class Veterinario {
     private Integer id;
 
     private String nome;
+    @Column(unique = true)
     private String email;
     private String especialidade;
     private BigDecimal salario;
