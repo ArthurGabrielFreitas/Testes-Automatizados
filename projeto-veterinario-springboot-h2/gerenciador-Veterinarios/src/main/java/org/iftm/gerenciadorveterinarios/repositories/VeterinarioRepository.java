@@ -6,6 +6,8 @@ import org.iftm.gerenciadorveterinarios.entities.Veterinario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.math.BigDecimal;
+import java.time.Instant;
+
 
 
 public interface VeterinarioRepository extends JpaRepository<Veterinario, Integer> {
@@ -21,4 +23,6 @@ public interface VeterinarioRepository extends JpaRepository<Veterinario, Intege
    public List<Veterinario> findBySalarioLessThan(BigDecimal salario);
 
    public List<Veterinario> findBySalarioBetween(BigDecimal salarioMinimo, BigDecimal salarioMaximo);
+
+   public List<Veterinario> findByDataNascimentoBetween(Instant dataNascimentoMinima, Instant dataNascimentoMaxima);
 }

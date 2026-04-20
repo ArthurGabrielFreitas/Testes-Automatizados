@@ -19,16 +19,18 @@ public class Veterinario {
     private String email;
     private String especialidade;
     private BigDecimal salario;
+    private Instant dataNascimento;
     
     public Veterinario() {
     }
 
-    public Veterinario(Integer id, String nome, String email, String especialidade, BigDecimal salario) {
+    public Veterinario(Integer id, String nome, String email, String especialidade, BigDecimal salario, Instant dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.especialidade = especialidade;
         this.salario = salario;
+        this.dataNascimento = dataNascimento;
     }
 
     public void setId(Integer id){
@@ -69,6 +71,14 @@ public class Veterinario {
 
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
+    }
+
+    public Instant getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Instant dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     
