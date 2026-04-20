@@ -1,6 +1,6 @@
 INSERT INTO tb_veterinario (nome, email, especialidade, salario, data_nascimento) VALUES('Conceição Evaristo', 'conceicao@gmail.com', 'pequenos', 3500.0, '2006-09-20');
 INSERT INTO tb_veterinario (nome, email, especialidade, salario, data_nascimento) VALUES('Erica Queiroz Pinto', 'erica@gmail.com', 'grandes', 4500.0, '2008-10-23');
-INSERT INTO tb_veterinario (nome, email, especialidade, salario, data_nascimento) VALUES('Ana Luiza Borges', 'analuiza@gmail.com', 'pequenos', 4200.0, '1995-03-15');
+INSERT INTO tb_veterinario (nome, email, especialidade, salario, data_nascimento) VALUES('Ana Luiza Borges', 'analuiza@gmail.com', 'pequenos', 4200.0, '2005-03-15');
 INSERT INTO tb_veterinario (nome, email, especialidade, salario, data_nascimento) VALUES('Carlos Eduardo Melo', 'carlosemelo@gmail.com', 'grandes', 5100.0, '1988-07-22');
 INSERT INTO tb_veterinario (nome, email, especialidade, salario, data_nascimento) VALUES('Fernanda Oliveira', 'fernanda.oliveira@gmail.com', 'silvestres', 3800.0, '2001-11-05');
 INSERT INTO tb_veterinario (nome, email, especialidade, salario, data_nascimento) VALUES('Roberto Nascimento', 'roberto.nasc@gmail.com', 'pequenos', 4700.0, '1992-04-18');

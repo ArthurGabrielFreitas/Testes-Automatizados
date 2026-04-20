@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +16,7 @@ import org.iftm.gerenciadorveterinarios.entities.Veterinario;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Commit;
 
 @DataJpaTest
 public class VeterinarioRepositoryTest {
@@ -127,5 +127,38 @@ public class VeterinarioRepositoryTest {
                 "A data de nascimento dos veterinários retornados deve ser anterior a "
                         + DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").withZone(ZoneId.of("America/Sao_Paulo"))
                                 .withLocale(new Locale("pt", "BR")));
+    }
+
+    @Test
+    @Commit
+    void testeAtualizarBancoDeDados() {
+        String silabaBusca = "iza";
+        String nomeNovo = "Ana Beatriz Borges";
+        String silabaBuscaNova = "atriz";
+        String emailNovo = "anabeatriz@gmail.com";
+        BigDecimal salarioMinimo = BigDecimal.valueOf(3800.0);
+        Instant dataNova = Instant.parse("1995-03-15T00:00:00Z");
+
+        Instant dataMinima = Instant.parse("2000-01-01T00:00:00Z");
+        Instant hoje = Instant.now();
+
+        Veterinario vetAtualizado = repositorio.findByNomeContains(silabaBusca).get(0);
+        vetAtualizado.setNome(nomeNovo);
+        vetAtualizado.setEmail(emailNovo);
+        vetAtualizado.setSalario(salarioMinimo);
+        vetAtualizado.setDataNascimento(dataNova);
+
+        repositorio.save(vetAtualizado);
+        List<Veterinario> resultadoBuscaPorNomeAntigoAposAtualizar = repositorio.findByNomeContains(silabaBusca);
+        List<Veterinario> resultadoBuscaPorDataAposAtualizar = repositorio.findByDataNascimentoBetween(dataMinima,
+                hoje);
+
+        List<Veterinario> resultadoBuscaPorNomeNovoAposAtualizar = repositorio.findByNomeContains(silabaBuscaNova);
+
+        assertTrue(resultadoBuscaPorNomeAntigoAposAtualizar.isEmpty(),
+                "A veterinária atualizada não deve aparecer nesse filtro");
+        assertTrue(resultadoBuscaPorDataAposAtualizar.stream().allMatch(v -> !v.getEmail().equals(emailNovo)),
+                "A veterinária atualizada não deve aparecer nesse filtro");
+        assertFalse(resultadoBuscaPorNomeNovoAposAtualizar.isEmpty());
     }
 }
