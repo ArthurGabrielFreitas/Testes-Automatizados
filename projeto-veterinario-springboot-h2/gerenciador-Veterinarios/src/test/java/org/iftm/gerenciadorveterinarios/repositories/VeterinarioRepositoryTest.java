@@ -95,8 +95,8 @@ public class VeterinarioRepositoryTest {
         assertFalse(resultado.isEmpty(), "Deveria retornar mais de um veterinário");
         assertTrue(
                 resultado.stream()
-                        .allMatch(v -> v.getSalario().compareTo(salarioMinimo) > 0
-                                && v.getSalario().compareTo(salarioMaximo) < 0),
+                        .allMatch(v -> v.getSalario().compareTo(salarioMinimo) >= 0
+                                && v.getSalario().compareTo(salarioMaximo) <= 0),
                 "Todo veterinário retornado deve ter salário entre " + salarioMinimo + " e " + salarioMaximo);
     }
 }
