@@ -25,4 +25,6 @@ public interface VeterinarioRepository extends JpaRepository<Veterinario, Intege
    public List<Veterinario> findBySalarioBetween(BigDecimal salarioMinimo, BigDecimal salarioMaximo);
 
    public List<Veterinario> findByDataNascimentoBetween(Instant dataNascimentoMinima, Instant dataNascimentoMaxima);
+
+   public int countBySalarioGreaterThan(BigDecimal salario);
 }
