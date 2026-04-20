@@ -7,8 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
 import org.junit.jupiter.api.Test;
@@ -104,5 +107,25 @@ public class VeterinarioRepositoryTest {
                         .allMatch(v -> v.getSalario().compareTo(salarioMinimo) >= 0
                                 && v.getSalario().compareTo(salarioMaximo) <= 0),
                 "Todo veterinário retornado deve ter salário menor que " + salarioMaximo);
+    }
+
+    @Test
+    void testeBuscarDataDeNascimentoEmFaixaDeValores() {
+        Instant dataMinima = Instant.parse("2000-01-01T00:00:00Z");
+        Instant hoje = Instant.now();
+
+        List<Veterinario> resultado = repositorio.findByDataNascimentoBetween(dataMinima, hoje);
+
+        assertFalse(resultado.isEmpty(), "Deveria retornar pelo menos um veterinário");
+        assertTrue(resultado.stream().allMatch(
+                v -> v.getDataNascimento().compareTo(dataMinima) >= 0),
+                "A data de nascimento dos veterinários retornados deve ser posterior a "
+                        + DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").withZone(ZoneId.of("America/Sao_Paulo"))
+                                .withLocale(new Locale("pt", "BR")));
+        assertTrue(resultado.stream().allMatch(
+                v -> v.getDataNascimento().compareTo(hoje) <= 0),
+                "A data de nascimento dos veterinários retornados deve ser anterior a "
+                        + DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").withZone(ZoneId.of("America/Sao_Paulo"))
+                                .withLocale(new Locale("pt", "BR")));
     }
 }
