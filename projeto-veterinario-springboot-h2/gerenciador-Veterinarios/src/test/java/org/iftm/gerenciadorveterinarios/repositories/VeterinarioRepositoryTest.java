@@ -161,4 +161,14 @@ public class VeterinarioRepositoryTest {
                 "A veterinária atualizada não deve aparecer nesse filtro");
         assertFalse(resultadoBuscaPorNomeNovoAposAtualizar.isEmpty());
     }
+
+    @Test
+    void testeBuscarQuantosVeterinariosAcimaDoTetoSalarial(){
+        int quantidadeAcimaDoTeto = 8;
+        BigDecimal tetoSalarial = BigDecimal.valueOf(5000);
+
+        int resultado = repositorio.countBySalarioGreaterThan(tetoSalarial);
+
+        assertEquals(quantidadeAcimaDoTeto, resultado);
+    }
 }
