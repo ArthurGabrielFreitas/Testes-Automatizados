@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -26,26 +27,29 @@ public class VeterinarioRepositoryTest {
     private VeterinarioRepository repositorio;
 
     @Test
+    @DisplayName("Deve encontrar veterinário por nome ignorando maiúsculas e minúsculas")
     void testeBuscarPorNomeIgnorandoCase() {
         String nomeBusca = "ANA LUIZA BORGES";
         String nomeEsperado = "Ana Luiza Borges";
 
         List<Veterinario> resultado = repositorio.findByNomeIgnoreCase(nomeBusca);
 
-        assertFalse(resultado.isEmpty(), "A lista não deveria estar vazia");
-        assertEquals(nomeEsperado, resultado.get(0).getNome());
+        assertFalse(resultado.isEmpty(), "Deveria retornar pelo menos um veterinário");
+        assertEquals(nomeEsperado, resultado.get(0).getNome(), "O nome do veterinário encontrado deveria ser igual ao nome do veterinário buscado");
     }
 
     @Test
+    @DisplayName("Deve retornar lista vazia ao buscar nome inexistente")
     void testeBuscarPorNomeInexistente() {
         String nomeBusca = "Zé Ninguém";
 
         List<Veterinario> resultado = repositorio.findByNomeIgnoreCase(nomeBusca);
 
-        assertTrue(resultado.isEmpty(), "A lista deveria estar vazia");
+        assertTrue(resultado.isEmpty(), "Não deveria retornar nenhum veterinário");
     }
 
     @Test
+    @DisplayName("Deve encontrar veterinários por pedaço do nome")
     void testeBuscarPorPedacoDoNome() {
         String silabaBusca = "za";
         String nomeEsperado1 = "Ana Luiza Borges";
@@ -61,6 +65,7 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
+    @DisplayName("Deve retornar todos os veterinários quando buscar com string vazia")
     void testeBuscarComStringVaziaRetornaTodos() {
         String silabaBusca = "";
         Long totalEsperado = repositorio.count();
@@ -71,6 +76,7 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
+    @DisplayName("Deve encontrar veterinários com salário superior ao mínimo")
     void testeBuscarPorSalarioSuperior() {
         BigDecimal salarioMinimo = BigDecimal.valueOf(4000.0);
 
@@ -82,6 +88,7 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
+    @DisplayName("Deve encontrar veterinários com salário inferior ao máximo")
     void testeBuscarPorSalarioInferior() {
         BigDecimal salarioMaximo = BigDecimal.valueOf(5000.0);
 
@@ -93,6 +100,7 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
+    @DisplayName("Deve encontrar veterinários com salário em faixa de valores específica")
     void testeBuscarPorSalarioEmFaixaDeValores() {
         BigDecimal salarioMinimo = BigDecimal.valueOf(4000.0);
         BigDecimal salarioMaximo = BigDecimal.valueOf(5000.0);
@@ -112,6 +120,7 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
+    @DisplayName("Deve encontrar veterinários com data de nascimento em faixa específica")
     void testeBuscarDataDeNascimentoEmFaixaDeValores() {
         Instant dataMinima = Instant.parse("2000-01-01T00:00:00Z");
         Instant hoje = Instant.now();
@@ -132,7 +141,7 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
-    @Commit
+    @DisplayName("Deve atualizar dados do veterinário no banco de dados")
     void testeAtualizarBancoDeDados() {
         String silabaBusca = "iza";
         String nomeNovo = "Ana Beatriz Borges";
@@ -165,6 +174,7 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
+    @DisplayName("Deve contar quantos veterinários têm salário acima do teto salarial")
     void testeBuscarQuantosVeterinariosAcimaDoTetoSalarial() {
         int quantidadeAcimaDoTeto = 8;
         BigDecimal tetoSalarial = BigDecimal.valueOf(5000);
@@ -175,6 +185,7 @@ public class VeterinarioRepositoryTest {
     }
 
     @Test
+    @DisplayName("Deve rejeitar salvamento de email duplicado")
     void testeRecusarSalvarEmailDuplicado() {
         String silabaBusca = "iza";
         String nomeNovo = "Ana Beatriz Borges";
