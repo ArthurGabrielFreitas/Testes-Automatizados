@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-
-
 public interface VeterinarioRepository extends JpaRepository<Veterinario, Integer> {
 
    @Query("SELECT v FROM Veterinario v WHERE LOWER(v.nome) = LOWER(:nome)")

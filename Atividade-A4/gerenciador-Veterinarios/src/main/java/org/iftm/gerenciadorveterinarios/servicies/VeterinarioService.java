@@ -21,7 +21,11 @@ public class VeterinarioService {
 
     @Transactional(readOnly = true)
     public Optional<Veterinario> buscaVeterinariosPeloId(Integer id){
-        return repositorio.findById(id);
+        Optional<Veterinario> vet =  repositorio.findById(id);
+        if (vet.get().getNome().length()>10){
+            vet.get().setNome(vet.get().getNome().substring(0, 10));
+        }
+        return vet;
     }
 
     @Transactional(readOnly = true)
