@@ -3,6 +3,8 @@ package org.iftm.gerenciadorveterinarios.servicies;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
 import org.iftm.gerenciadorveterinarios.repositories.VeterinarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,16 @@ public class VeterinarioService {
     @Transactional
     public void apagar(Veterinario veterinario){
         repositorio.delete(veterinario);
+    }
+
+    @Transactional
+    public void apagarPorId(Integer id){
+        Optional<Veterinario> veterinario = repositorio.findById(id);
+
+        if (veterinario.isEmpty()) {
+            throw new RuntimeException("Veterinário com o id " + id + " não encontrado");
+        }
+
+        repositorio.delete(veterinario.get());
     }
 }
