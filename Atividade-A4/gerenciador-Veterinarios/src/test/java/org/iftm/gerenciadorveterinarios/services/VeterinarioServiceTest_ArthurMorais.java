@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
 import org.iftm.gerenciadorveterinarios.repositories.VeterinarioRepository;
+import org.iftm.gerenciadorveterinarios.servicies.VeterinarioService;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -50,6 +52,19 @@ public class VeterinarioServiceTest_ArthurMorais {
         assertEquals(vets, resultado);
         assertFalse(resultado.contains(veterinario3));
         verify(veterinarioRepository).findByNomeContains("Silva");
+    }
+
+    
+    @Test
+    @DisplayName("Deve lançar exceção caso não encontre o id")
+    public void deveLancarExcecaoAoApagarQuandoIdNaoExistir() {
+        Integer idInexistente = 9999;
+
+        when(veterinarioService.apagarPorId(idInexistente)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> {
+            veterinarioService.apagarPorId(idInexistente);
+        });
     }
 
 }
