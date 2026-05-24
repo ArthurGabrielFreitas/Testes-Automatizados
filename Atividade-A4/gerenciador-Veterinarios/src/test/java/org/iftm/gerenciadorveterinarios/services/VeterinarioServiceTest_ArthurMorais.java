@@ -1,6 +1,7 @@
-package test.java.org.iftm.gerenciadorveterinarios.services;
+package org.iftm.gerenciadorveterinarios.services;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,9 +40,9 @@ public class VeterinarioServiceTest_ArthurMorais {
     @Test
     @DisplayName("Deve retornar uma lista com apenas dois veterinários")
     public void testeBuscaVeterinariosComParteNome() {
-        Veterinario veterinario1 = new Veterinario(1, "Marco José da Silva", "marjo@email.com", "cachorros", BigDecimal.valueOf(2500));
-        Veterinario veterinario2 = new Veterinario(2, "Maryanny Lopes Silva", "marlo@email.com", "gatos", BigDecimal.valueOf(5500));
-        Veterinario veterinario3 = new Veterinario(3, "Maríssia Mauro Maury", "marmaumau@email.com", "exóticos", BigDecimal.valueOf(3500));
+        Veterinario veterinario1 = new Veterinario(1, "Marco José da Silva", "marjo@email.com", "cachorros", BigDecimal.valueOf(2500), Instant.parse("1985-03-15T00:00:00Z"));
+        Veterinario veterinario2 = new Veterinario(2, "Maryanny Lopes Silva", "marlo@email.com", "gatos", BigDecimal.valueOf(5500), Instant.parse("1990-07-22T00:00:00Z"));
+        Veterinario veterinario3 = new Veterinario(3, "Maríssia Mauro Maury", "marmaumau@email.com", "exóticos", BigDecimal.valueOf(3500), Instant.parse("1988-11-30T00:00:00Z"));
         List<Veterinario> vets = Arrays.asList(veterinario1, veterinario2);
 
         when(veterinarioService.buscaVeterinariosComParteNome("Silva")).thenReturn(vets);
@@ -60,7 +61,7 @@ public class VeterinarioServiceTest_ArthurMorais {
     public void deveLancarExcecaoAoApagarQuandoIdNaoExistir() {
         Integer idInexistente = 9999;
 
-        when(veterinarioService.apagarPorId(idInexistente)).thenReturn(Optional.empty());
+        when(veterinarioRepository.findById(idInexistente)).thenReturn(Optional.empty());
 
         assertThrows(RuntimeException.class, () -> {
             veterinarioService.apagarPorId(idInexistente);
