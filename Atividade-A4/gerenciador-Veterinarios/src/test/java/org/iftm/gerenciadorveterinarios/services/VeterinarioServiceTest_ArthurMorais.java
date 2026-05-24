@@ -66,6 +66,8 @@ public class VeterinarioServiceTest_ArthurMorais {
         assertThrows(RuntimeException.class, () -> {
             veterinarioService.apagarPorId(idInexistente);
         });
+
+        verify(veterinarioRepository, never()).delete(any());
     }
 
 }
