@@ -58,14 +58,22 @@ INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES('Jorge Am
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.content").exists())
             .andExpect(jsonPath("$.content").isArray())
+            .andExpect(jsonPath("$.content", hasSize(quantidadeLinhasPagina)))
             .andExpect(jsonPath("$.content[?(@.id == '%s')]",7L).exists())
             .andExpect(jsonPath("$.content[?(@.id == '%s')]",4L).exists())
             .andExpect(jsonPath("$.content[?(@.id == '%s')]",8L).exists())
             .andExpect(jsonPath("$.content[?(@.name == '%s')]","Toni Morrison").exists())
+            .andExpect(jsonPath("$.content[0].id").exists())
+            .andExpect(jsonPath("$.content[0].name").isString())
             .andExpect(jsonPath("$.totalElements").exists())
             .andExpect(jsonPath("$.totalElements").value(quantidadeClientes))
             .andExpect(jsonPath("$.numberOfElements").exists())
             .andExpect(jsonPath("$.numberOfElements").value(quantidadeLinhasPagina))
+            .andExpect(jsonPath("$.size").value(quantidadeLinhasPagina))
+            .andExpect(jsonPath("$.number").value(0))
+            .andExpect(jsonPath("$.first").value(true))
+            .andExpect(jsonPath("$.last").value(true))
+            .andExpect(jsonPath("$.empty").value(false))
             .andExpect(jsonPath("$.content[*].id", containsInAnyOrder(4,10,3,1,6,5,12,7,2,11,8,9)));
     }
 }
