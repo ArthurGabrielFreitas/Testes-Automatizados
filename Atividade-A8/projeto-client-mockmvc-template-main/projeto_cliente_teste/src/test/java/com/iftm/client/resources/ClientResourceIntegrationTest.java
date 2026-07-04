@@ -76,4 +76,38 @@ INSERT INTO tb_client (name, cpf, income, birth_date, children) VALUES('Jorge Am
             .andExpect(jsonPath("$.empty").value(false))
             .andExpect(jsonPath("$.content[*].id", containsInAnyOrder(4,10,3,1,6,5,12,7,2,11,8,9)));
     }
+
+    @Test
+    @DisplayName("Verificar se o endpoint get /clients/id/{id} retorna os dados do cliente existente")
+    public void testarEndPointBuscarClientePorIdExistenteRetornaCorreto() throws Exception {
+        Long existingId = 3L;
+
+        ResultActions resultados = mockMVC.perform(get("/clients/id/{id}", existingId)
+            .accept(MediaType.APPLICATION_JSON));
+
+        resultados
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(existingId))
+            .andExpect(jsonPath("$.name").value("Clarice Lispector"))
+            .andExpect(jsonPath("$.cpf").value("10919444522"))
+            .andExpect(jsonPath("$.income").value(3800.0))
+            .andExpect(jsonPath("$.birthDate").value("1960-04-13T07:50:00Z"))
+            .andExpect(jsonPath("$.children").value(2));
+    }
+
+    @Test
+    @DisplayName("Verificar se o endpoint get /clients/id/{id} retorna erro quando o id não existe")
+    public void testarEndPointBuscarClientePorIdInexistenteRetornaErro() throws Exception {
+        Long inexistenteId = 33L;
+
+        ResultActions resultados = mockMVC.perform(get("/clients/id/{id}", inexistenteId)
+            .accept(MediaType.APPLICATION_JSON));
+
+        resultados
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("$.status").value(404))
+            .andExpect(jsonPath("$.error").value("Resource not found"))
+            .andExpect(jsonPath("$.message").value("Entity not found"))
+            .andExpect(jsonPath("$.path").value("/clients/id/33"));
+    }
 }
